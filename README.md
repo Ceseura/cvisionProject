@@ -22,7 +22,7 @@ run 'echo /usr/local/opt/opencv/lib/python2.7/site-packages >> /usr/local/lib/py
 
 open python in the terminal with 'python', the run 
 'import cv2'
-'print cv2.__version__' 
+'print cv2.\_\_version\_\_' 
 
 to make sure you have installed the right version
 
