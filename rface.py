@@ -5,7 +5,9 @@ import cv2
 import numpy
 import random
 
-def read_csv(filename='faces.csv'):
+names = {'0':'Alex', '1':'Nico', '2':'Puneeth'}
+
+def read_csv(filename='images.csv'):
 	csv = open(filename, 'r')
 	return csv 
 
@@ -29,8 +31,8 @@ def prepare_training_testing_data(file):
     training_data, testing_data = split_test_training_data(lines)
     return training_data, testing_data
 
-def split_test_training_data(data, amt=9):
-    # Split a list of image files: amt training, the rest testing
+def split_test_training_data(data, amt=3):
+    # Split a list of image files: amt testing, the rest training
     random.shuffle(data)
     training_data = data[amt:]
     testing_data = data[:amt]
@@ -60,12 +62,15 @@ def read_matrix_from_file(filename):
 
 if __name__ == '__main__':
 	training_data, testing_data = prepare_training_testing_data(read_csv())
+	print 'training: {}; testing: {}'.format(len(training_data), len(testing_data))
 	data_dict = create_label_matrix_dict(training_data)
 	model = create_and_train_model_from_dict(data_dict)
 
 	for line in testing_data:
 		filename, label = line.strip().split(';')
 		predicted_label = predict_image_from_model(model, read_matrix_from_file(filename))
-		print('Predicted: {}; Actual: {}'.format(predicted_label[0], label))
+		print('Predicted: {}; Actual: {}'.format(names[str(predicted_label[0])], names[str(label)]))
+		cv2.imshow("pic", read_matrix_from_file(filename))
+		cv2.waitKey(0)
 
 

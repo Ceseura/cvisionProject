@@ -6,8 +6,8 @@ import cv2
 face_cascade = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
 CASCADE = './haarcascade_frontalface_default.xml'
 
-BASEINNAME = 'images/raw/puneeth/img{}.jpg'
-BASEOUTNAME = 'images/raw/puneeth/{}pic{}.jpg'
+BASEINNAME = 'images/raw/alex/img{}.jpg'
+BASEOUTNAME = 'images/raw/alex/{}pic{}.jpg'
 NUMPICS = 11
 
 for i in range(1, NUMPICS+1):
