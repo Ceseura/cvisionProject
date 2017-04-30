@@ -3,8 +3,9 @@
 import numpy
 import cv2 
 
-face_cascade = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
-CASCADE = './haarcascade_frontalface_default.xml'
+CASCADE = './data/haarcascade_frontalface_default.xml'
+face_cascade = cv2.CascadeClassifier(CASCADE)
+
 
 BASEINNAME = 'images/raw/milin/pic{}.jpg'
 BASEOUTNAME = 'images/processed/milin/{}pic{}.jpg'

@@ -4,8 +4,8 @@
 import numpy as np
 import cv2
 
-face_cascade = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('./haarcascade_eye.xml')
+face_cascade = cv2.CascadeClassifier('./data/haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('./data/haarcascade_eye.xml')
      
 img = cv2.imread('./images/processed/milin/pic4.jpg')
 print(img.shape)
