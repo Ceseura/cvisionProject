@@ -1,3 +1,7 @@
+# This code trains a recognizer
+# Originally from https://github.com/Rob-Johnson/opencv-eigenfaces/blob/master/test_eigenfaces.py
+# But edited
+
 import cv2
 import sys
 import random
@@ -48,7 +52,7 @@ def read_matrix_from_file(filename):
 # Takes a dictionary of {label:matrix_image} and creates an eigenface model
 def create_and_train_model_from_dict(label_matrix):
 	# Create and train eigenface model
-	model = cv2.createEigenFaceRecognizer()
+	model = cv2.createFisherFaceRecognizer()
 	images = label_matrix.values()
 	labels = numpy.array(label_matrix.keys())
 	model.train(images, labels)
@@ -70,6 +74,6 @@ if __name__ == '__main__':
 	data_dict = create_label_matrix_dict(training_data)
 	model = create_and_train_model_from_dict(data_dict)
 
-	model.save("model.xml")
+	model.save("modelF.xml")
 
 

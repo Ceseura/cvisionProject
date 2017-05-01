@@ -27,7 +27,7 @@ import os.path
 if __name__ == "__main__":
 
     if len(sys.argv) != 2:
-        print("usage: create_csv <base_path>")
+        print "try: python create_csv.py <image_base_path> > <csv_name.csv>"
         sys.exit(1)
 
     BASE_PATH=sys.argv[1]

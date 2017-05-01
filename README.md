@@ -7,7 +7,24 @@ This project will take an image as input, find all of the faces, and attempt to 
 This project uses Python 2.7, OpenCV V2.4.13.2 installed from homebrew
 Using opencv 2.X because eigenfaces don't work in 3.X
 
+______________________________________________________________________
 
+
+Using this program:
+Store training data in a directory - see create_csv.py for detailed instructions
+
+run create_csv.py to create a csv file containing the training data filepaths
+
+run trainRecognizer.py to train the recognizer. OPTIONAL: Edit trainRecognizer.py and main.py to use Eigenfaces/Fisherfaces/etc.
+
+run main.py to run the recognizer on an image
+
+
+OPTIONAL: edit and run classifier_test.py to determine which haar cascade classifier is most accurate on your image. The filepath should be specified on line 9
+
+OPTIONAL: rface.py and fface.py are lightly adapted from the URLs indicated at the top of each respective file. Feel free to check them out
+
+______________________________________________________________________
 
 
 Steps to setup environment (on macOS Sierra v10.12.3)
