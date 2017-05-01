@@ -7,15 +7,16 @@ CASCADE = './data/haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(CASCADE)
 
 
-BASEINNAME = 'images/raw/milin/pic{}.jpg'
-BASEOUTNAME = 'images/processed/milin/{}pic{}.jpg'
+BASEINNAME = 'images/raw/puneeth/img{}.jpg'
+BASEOUTNAME = 'images/processed/puneeth/{}pic{}.jpg'
 NUMPICS = 10
 
-for i in range(1, NUMPICS+1):
+for i in range(12, 17):
 	print "Working on {}".format(i)
 	filename = BASEINNAME.format(i)
 
 	img = cv2.imread(filename)
+	img = numpy.rot90(img, 2)
 	minSize = min(img.shape[0], img.shape[1])/10
 
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
