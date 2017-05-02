@@ -45,14 +45,18 @@ def create_label_matrix_dict(input_file):
 	return label_dict
 
 # Takes a filename (string) and returns a matrix representing the image
+# with normalized intensity
 def read_matrix_from_file(filename):
-	file_matrix = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
+	file_matrix_temp = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
+	file_matrix = cv2.equalizeHist(file_matrix_temp)
 	return file_matrix
 
 # Takes a dictionary of {label:matrix_image} and creates an eigenface model
 def create_and_train_model_from_dict(label_matrix):
 	# Create and train eigenface model
-	model = cv2.createFisherFaceRecognizer()
+	#model = cv2.createLBPHFaceRecognizer()
+	model = cv2.createEigenFaceRecognizer()
+	#model = cv2.createFisherFaceRecognizer()
 	images = label_matrix.values()
 	labels = numpy.array(label_matrix.keys())
 	model.train(images, labels)
@@ -74,6 +78,6 @@ if __name__ == '__main__':
 	data_dict = create_label_matrix_dict(training_data)
 	model = create_and_train_model_from_dict(data_dict)
 
-	model.save("modelF.xml")
+	model.save("modelE.xml")
 
 
