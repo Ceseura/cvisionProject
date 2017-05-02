@@ -13,9 +13,9 @@ def display_image(PATH):
 def perm_rotate_image(PATH):
 	image = cv2.imread(PATH)
 	print(image.shape)
-	image = numpy.rot90(image, 1)
-	cv2.imshow('', image)
-	cv2.waitKey(0)
+	image = numpy.rot90(image, 3)
+	#cv2.imshow('', image)
+	#cv2.waitKey(0)
 	cv2.imwrite("images/raw/utilsOutput.jpg", image)
 
 PATH = ''

@@ -3,7 +3,8 @@ import numpy
 import sys
 
 # Dictionary of names for display purposes
-names = {'0':'ALEX', '1':'ANDREW', '2':'EILEEN', '3':'MICHAEL', '4': 'MILIN', '5':'NICO', '6':'PAT', '7':'PUNEETH'}
+#names = {'0':'ALEX', '1':'ANDREW', '2':'EILEEN', '3':'MICHAEL', '4': 'MILIN', '5':'NICO', '6':'PAT', '7':'PUNEETH'}
+names = {'0':'ALEX', '1':'EILEEN', '2':'MILIN', '3':'NICO', '4':'PUNEETH'}
 
 # Base text for face labeling
 BASETEXT = '{} {}'
@@ -123,7 +124,7 @@ if __name__ == '__main__':
 	recognizers = list()
 
 	# Lets do 3 of each type of recognizer (Eigen, Fisher, LBPH)
-	for i in range(10):
+	for i in range(3):
 		recognizer = cv2.createEigenFaceRecognizer()
 		#filen = '/home/puneeth/public_html/facefinder/scripts/models/modelE{}.xml'.format(i+1)
 		filen = './models/modelE{}.xml'.format(i+1)
@@ -131,7 +132,7 @@ if __name__ == '__main__':
 		recognizer.load(filen)
 		recognizers.append(recognizer)
 
-	for i in range(10):
+	for i in range(3):
 		recognizer = cv2.createFisherFaceRecognizer()
 		#filen = '/home/puneeth/public_html/facefinder/scripts/models/modelF{}.xml'.format(i+1)
 		filen = './models/modelF{}.xml'.format(i+1)
@@ -139,7 +140,7 @@ if __name__ == '__main__':
 		recognizer.load(filen)
 		recognizers.append(recognizer)
 
-	for i in range(10):
+	for i in range(3):
 		recognizer = cv2.createLBPHFaceRecognizer()
 		#filen = '/home/puneeth/public_html/facefinder/scripts/models/modelL{}.xml'.format(i+1)
 		filen = './models/modelL{}.xml'.format(i+1)
@@ -172,9 +173,9 @@ if __name__ == '__main__':
 	labeledImage = cv2.resize(labeledImage, (labeledImage.shape[1]//3, labeledImage.shape[0]//3))
 
 
-        cv2.imwrite(NEWIMAGEFPATH, labeledImage)
-	#cv2.imshow("final", labeledImage)
-	#cv2.waitKey(0)
+    #cv2.imwrite(NEWIMAGEFPATH, labeledImage)
+	cv2.imshow("final", labeledImage)
+	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 
 
