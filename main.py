@@ -123,7 +123,7 @@ if __name__ == '__main__':
 	# the most votes?
 	recognizers = list()
 
-	# Lets do 3 of each type of recognizer (Eigen, Fisher, LBPH)
+	#Lets do 3 of each type of recognizer (Eigen, Fisher, LBPH)
 	for i in range(3):
 		recognizer = cv2.createEigenFaceRecognizer()
 		#filen = '/home/puneeth/public_html/facefinder/scripts/models/modelE{}.xml'.format(i+1)
@@ -174,6 +174,7 @@ if __name__ == '__main__':
 
 
     #cv2.imwrite(NEWIMAGEFPATH, labeledImage)
+	cv2.imwrite("images/raw/out.jpg", labeledImage)
 	cv2.imshow("final", labeledImage)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()

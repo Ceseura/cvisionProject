@@ -12,8 +12,8 @@ CASCADE = './data/haarcascade_frontalface_default.xml'
 
 
 # Filepaths for input and output
-BASEINNAME = 'images/raw/michael/img{}.jpg'
-BASEOUTNAME = 'images/processed/michael/{}pic{}.jpg'
+BASEINNAME = 'images/raw/milin/img{}.jpg'
+BASEOUTNAME = 'images/processed/milin/{}pic{}.jpg'
 
 # Number of pictures in the file
 NUMPICS = 12
@@ -23,7 +23,7 @@ NUMPICS = 12
 # Stores all faces detected in a different folder (see BASEOUTNAME above)
 def detect_faces(face_cascade):
 	# For each picture...
-	for i in range(1, NUMPICS+1):
+	for i in range(13, 18):
 		print "Working on {}".format(i)
 		filename = BASEINNAME.format(i)
 
@@ -31,7 +31,7 @@ def detect_faces(face_cascade):
 		img = cv2.imread(filename)
 
 		# Rotate if necessary
-		img = numpy.rot90(img, 1)
+		#img = numpy.rot90(img, 2)
 		minSize = min(img.shape[0], img.shape[1])/10
 
 		# Convert to greyscale

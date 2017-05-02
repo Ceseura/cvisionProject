@@ -4,7 +4,7 @@ import numpy
 
 def display_image(PATH):
 	image = cv2.imread(PATH)
-	image = numpy.rot90(image, 1)
+	#image = numpy.rot90(image, 1)
 
 	cv2.imshow('', image)
 	cv2.waitKey(0)
@@ -19,7 +19,7 @@ def perm_rotate_image(PATH):
 	cv2.imwrite("images/raw/utilsOutput.jpg", image)
 
 PATH = ''
-NAME = "img{}.jpg"
+NAME = "pic{}.jpg"
 
 if __name__ == '__main__':
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
 	# name formatted like: imgX.jpg
 	if sys.argv[2] == 'show':
 		#display_image(PATH)
-		for i in range(1, 11):
+		for i in range(1, 16):
 			filename = PATH + NAME.format(i)
 			print "Working on {}".format(filename)
 			display_image(filename)
