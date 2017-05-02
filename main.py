@@ -3,7 +3,7 @@ import numpy
 import sys
 
 # Dictionary of names for display purposes
-names = {'0':'ALEX', '1':'ANDREW', '2':'EILEEN', '3': 'MILIN', '4':'NICO', '5':'PAT', '6':'PUNEETH'}
+names = {'0':'ALEX', '1':'ANDREW', '2':'EILEEN', '3':'MICHAEL', '4': 'MILIN', '5':'NICO', '6':'PAT', '7':'PUNEETH'}
 
 # Base text for face labeling
 BASETEXT = '{} {}'
