@@ -95,7 +95,7 @@ if __name__ == '__main__':
 	#recognizer = cv2.createLBPHFaceRecognizer()
 	recognizer = cv2.createEigenFaceRecognizer()
 	#recognizer = cv2.createFisherFaceRecognizer()
-	recognizer.load('modelE.xml')
+	recognizer.load('./models/modelE.xml')
 
 	labeledImage = predict_faces(recognizer, faces, image, gray, labeledImage)
 

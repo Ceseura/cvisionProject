@@ -78,6 +78,6 @@ if __name__ == '__main__':
 	data_dict = create_label_matrix_dict(training_data)
 	model = create_and_train_model_from_dict(data_dict)
 
-	model.save("modelE.xml")
+	model.save("./models/modelE.xml")
 
 
