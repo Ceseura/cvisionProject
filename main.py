@@ -9,10 +9,12 @@ names = {'0':'ALEX', '1':'ANDREW', '2':'EILEEN', '3':'MICHAEL', '4': 'MILIN', '5
 BASETEXT = '{} {}'
 
 # face detector classifier
+# CASCADE = '/home/puneeth/public_html/facefinder/scripts/data/haarcascade_frontalface_alt1.xml'
 CASCADE = './data/haarcascade_frontalface_alt1.xml'
 
 # Default image filepath. Can be changed if an argument is passed 
 # in via terminal
+#IMAGEFPATH = '/home/puneeth/public_html/facefinder/scripts/images/raw/alex/img5.jpg'
 IMAGEFPATH = './images/raw/alex/img5.jpg'
 
 # Given a cascade face finder, and an image to workong
@@ -99,6 +101,8 @@ if __name__ == '__main__':
 	if len(sys.argv) is 2:
 		IMAGEFPATH = sys.argv[1]
 
+        NEWIMAGEFPATH = IMAGEFPATH.split(".")[0] + "_FINAL." + IMAGEFPATH.split(".")[1]
+
 	# Reads images in normal format, greyscale, and scaled to 256x256
 	image = cv2.imread(IMAGEFPATH)
 	labeledImage = cv2.imread(IMAGEFPATH)
@@ -107,8 +111,8 @@ if __name__ == '__main__':
 	imageR = cv2.resize(image, (image.shape[1]//3, image.shape[0]//3))
 
 	# Display the input image, just as a sanity check
-	cv2.imshow("base", imageR)
-	cv2.waitKey(0)
+	#cv2.imshow("base", imageR)
+	#cv2.waitKey(0)
 
 	face_finder = cv2.CascadeClassifier(CASCADE)
 	faces = detect_faces(face_finder, gray)
@@ -121,6 +125,7 @@ if __name__ == '__main__':
 	# Lets do 3 of each type of recognizer (Eigen, Fisher, LBPH)
 	for i in range(10):
 		recognizer = cv2.createEigenFaceRecognizer()
+		#filen = '/home/puneeth/public_html/facefinder/scripts/models/modelE{}.xml'.format(i+1)
 		filen = './models/modelE{}.xml'.format(i+1)
 		print "loading {}".format(filen)
 		recognizer.load(filen)
@@ -128,6 +133,7 @@ if __name__ == '__main__':
 
 	for i in range(10):
 		recognizer = cv2.createFisherFaceRecognizer()
+		#filen = '/home/puneeth/public_html/facefinder/scripts/models/modelF{}.xml'.format(i+1)
 		filen = './models/modelF{}.xml'.format(i+1)
 		print "loading {}".format(filen)
 		recognizer.load(filen)
@@ -135,15 +141,12 @@ if __name__ == '__main__':
 
 	for i in range(10):
 		recognizer = cv2.createLBPHFaceRecognizer()
+		#filen = '/home/puneeth/public_html/facefinder/scripts/models/modelL{}.xml'.format(i+1)
 		filen = './models/modelL{}.xml'.format(i+1)
 		print "loading {}".format(filen)
 		recognizer.load(filen)
 		recognizers.append(recognizer)
 
-	
-
-
-	# The face recognizer, using Eigenfaces/Fisherfaces/
 	# Local Binary Pattern/etc.
 	#recognizer = cv2.createLBPHFaceRecognizer()
 	#recognizer = cv2.createEigenFaceRecognizer()
@@ -167,8 +170,11 @@ if __name__ == '__main__':
 
 	# Show the final picture with labels
 	labeledImage = cv2.resize(labeledImage, (labeledImage.shape[1]//3, labeledImage.shape[0]//3))
-	cv2.imshow("final", labeledImage)
-	cv2.waitKey(0)
+
+
+        cv2.imwrite(NEWIMAGEFPATH, labeledImage)
+	#cv2.imshow("final", labeledImage)
+	#cv2.waitKey(0)
 	cv2.destroyAllWindows()
 
 
