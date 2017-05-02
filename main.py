@@ -41,6 +41,7 @@ def detect_faces(face_finder, image):
 def predict_faces(recognizer, faces, image, gray, labeledImage):
 	# For each face, mark it with a blue square, run the recognizer 
 	# against it, and label the square
+	outList = list()
 	iteration = 0
 	for (x, y, w, h) in faces:
 		iteration += 1
@@ -57,18 +58,40 @@ def predict_faces(recognizer, faces, image, gray, labeledImage):
 
 		# Predict with the recognizer
 		prediction = recognizer.predict(roiNGR)
+		outList.append(prediction[0])
 
+	return outList
+'''
 		print '{}: Predicted: {}; Confidence: {}'.format(iteration, names[str(prediction[0])], prediction[1])
 
 		# Add rectangle and text label to faces
 		cv2.putText(labeledImage, BASETEXT.format(iteration, names[str(prediction[0])]), (x, y-5), cv2.FONT_HERSHEY_PLAIN, 4, (255, 0, 0), 4)
 		cv2.rectangle(labeledImage,(x,y),(x+w,y+h),(255,0,0),2)
-
+'''
 		# Show all of the detected faces 
 		#cv2.imshow("face {}".format(iteration), roi)
 		#cv2.waitKey(0)
-	return labeledImage
 
+
+def label_faces(all_predictions, faces, image):
+	iteration = 0
+	for (x, y, w, h) in faces:
+		predictions = all_predictions[iteration]
+		#prediction = numpy.argmax(predictions)
+		prediction = numpy.argwhere(predictions == numpy.amax(predictions))
+		prediction = prediction.flatten().tolist()
+		string = ''
+		for p in prediction:
+			string += names[str(p)]
+			string += ' '
+		print '{}: Predicted: {}'.format(iteration+1, string)
+
+		# Add rectangle and text label to faces
+		cv2.putText(image, BASETEXT.format(iteration+1, string), (x, y-5), cv2.FONT_HERSHEY_PLAIN, 4, (255, 0, 0), 4)
+		cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),2)
+
+		iteration += 1
+	return image
 
 
 if __name__ == '__main__':
@@ -90,14 +113,56 @@ if __name__ == '__main__':
 	face_finder = cv2.CascadeClassifier(CASCADE)
 	faces = detect_faces(face_finder, gray)
 
+	# Since the recognizer is kind of inaccurate, what if we 
+	# use multiple recognizers and pick the prediction with
+	# the most votes?
+	recognizers = list()
+
+	# Lets do 3 of each type of recognizer (Eigen, Fisher, LBPH)
+	for i in range(10):
+		recognizer = cv2.createEigenFaceRecognizer()
+		filen = './models/modelE{}.xml'.format(i+1)
+		print "loading {}".format(filen)
+		recognizer.load(filen)
+		recognizers.append(recognizer)
+
+	for i in range(10):
+		recognizer = cv2.createFisherFaceRecognizer()
+		filen = './models/modelF{}.xml'.format(i+1)
+		print "loading {}".format(filen)
+		recognizer.load(filen)
+		recognizers.append(recognizer)
+
+	for i in range(10):
+		recognizer = cv2.createLBPHFaceRecognizer()
+		filen = './models/modelL{}.xml'.format(i+1)
+		print "loading {}".format(filen)
+		recognizer.load(filen)
+		recognizers.append(recognizer)
+
+	
+
+
 	# The face recognizer, using Eigenfaces/Fisherfaces/
 	# Local Binary Pattern/etc.
 	#recognizer = cv2.createLBPHFaceRecognizer()
-	recognizer = cv2.createEigenFaceRecognizer()
+	#recognizer = cv2.createEigenFaceRecognizer()
 	#recognizer = cv2.createFisherFaceRecognizer()
-	recognizer.load('./models/modelE.xml')
+	#recognizer.load('./models/modelE.xml')
 
-	labeledImage = predict_faces(recognizer, faces, image, gray, labeledImage)
+	# Create a NxM array to store predictions, where 
+	# N = amount of people possible
+	# M = amount of faces detected
+	all_predictions = numpy.zeros((len(faces), len(names)))
+
+ 	for recognizer in recognizers:
+		predictions = predict_faces(recognizer, faces, image, gray, labeledImage)
+		for i in range(len(predictions)):
+			all_predictions[i][predictions[i]] += 1
+
+	print(all_predictions)
+
+	labeledImage = label_faces(all_predictions, faces, labeledImage)
 
 
 	# Show the final picture with labels
